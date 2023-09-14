@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Space } from 'antd';
+import { Button } from 'antd';
 
 interface Props {
   label: string;
@@ -25,13 +25,9 @@ const NewButton = (label: Props) => {
   };
 
   return (
-    <Space direction="vertical">
-      <Space wrap>
         <Button type="primary" loading={loadings[0]} onClick={() => enterLoading(0)}>
           {label.label}
         </Button>
-      </Space>
-    </Space>
   );
 };
 

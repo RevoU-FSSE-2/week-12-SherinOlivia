@@ -7,3 +7,6 @@ export { default as DateofBirth} from './DateofBirth';
 export { default as Text } from './Text';
 
 // Address Information
+export { default as Address} from './Address';
+export { default as Province} from './Province';
+export { default as ZipCode} from './ZipCode';
