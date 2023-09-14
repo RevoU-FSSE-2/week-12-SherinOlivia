@@ -1,16 +1,6 @@
 import React from 'react';
-import { InputField, NewButton } from '../../components';
-// import type { CascaderProps } from 'antd';
-import {
-//   DatePicker,
-//   AutoComplete,
-//   Button,
-//   Col,
-  Form,
-//   Input,
-//   Row,
-} from 'antd';
-import FormItem from 'antd/es/form/FormItem';
+import { Address, ZipCode, Province, InputField, NewButton } from '../../components';
+import { Form, Space } from 'antd';
 
 const formItemLayout = {
     labelCol: {
@@ -29,30 +19,30 @@ const AddressInformation: React.FC = () => {
 
     return (
         <Form form={form} name="dynamic_rule" style={{ maxWidth: 600 }}>
+                        
+            <Address placeholder="Please Input Your Address" />
+        
+            <Province />
+
             <Form.Item
             {...formItemLayout}
-            name="streetAddress"
-            label="Street Address"
-            rules={[{ required: true, message: 'Please Input Your Name' }]}
+            name="city"
+            label="City"
+            rules={[{ required: true, message: 'Please Input Your City' }]}
             >
-            <InputField placeholder="Please Input Your Name" />
-            </Form.Item>
-            
-            <Form.Item
-            {...formItemLayout}
-            name="email"
-            label="Email"
-            rules={[{ required: true, message: 'Please Input Your Name' }]}>
-            <InputField placeholder="Please Input Your Email.." />
+            <InputField placeholder="Please Input Your City" />
             </Form.Item>
 
-            <FormItem>
+            <Form.Item>
+                <ZipCode placeholder="Zip Code.." />
+            </Form.Item>
+
+            <Space direction="vertical">
+                <Space wrap>
                 <NewButton label="Previous" />
-            </FormItem>
-            <FormItem>
                 <NewButton label="Next" />
-            </FormItem>
-
+                </Space>
+            </Space>
         </Form>
     )
 }
