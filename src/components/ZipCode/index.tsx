@@ -4,12 +4,12 @@ import { InputNumber } from 'antd';
 interface Props {
   placeholder: string;
   autoComplete: string;
-  value: string;
-  onChange: (e: string | React.ChangeEvent) => void
+  value: number;
+  onChange: (value: number | null) => void
   status: "" | "error" | "warning" | undefined
 }
 
-const ZipCode: React.FC<Props> = ({ placeholder, autoComplete }) => <InputNumber min={5} max={5} 
-name="zipcode" placeholder={placeholder} autoComplete={autoComplete} />;
+const ZipCode: React.FC<Props> = ({ placeholder, autoComplete, value, onChange, status }) => 
+<InputNumber minLength={5} maxLength={5} name="zipcode" placeholder={placeholder} autoComplete={autoComplete} value={value} onChange={onChange} status={status} />;
 
 export default ZipCode;
