@@ -7,21 +7,21 @@ interface AddressInfo {
   address: string,
   state: string,
   city: string,
-  zipcode: string
+  zipcode: number
 }
 
 const initialValues = {
   address: '',
   state: '',
   city: '',
-  zipcode: ''
+  zipcode: 0
 }
 
 const validationSchema = yup.object({
   address: yup.string().required('Please Enter Your Street Address'),
   state: yup.string().required('Please Select Your State'),
   city: yup.string().required('Please Select Your City'),
-  zipcode: yup.string().required('Please Enter your Zip Code'),
+  zipcode: yup.number().required('Please Enter your Zip Code'),
 })
 
 
@@ -83,8 +83,10 @@ const AddressInformation: React.FC = () => {
           <div>
             <Text content="Zip Code" />
             <ZipCode placeholder="Zip Code.." autoComplete='postal-code'
-            value={formMik.values.zipcode} 
-            onChange={formMik.handleChange('zipcode')}
+            value={formMik.values.zipcode}
+            onChange={(value) => {
+              formMik.handleChange('zipcode')(String(value));
+            }}
             status={formMik.errors.zipcode && 'error'}/>
 
             {formMik.errors.zipcode && (
