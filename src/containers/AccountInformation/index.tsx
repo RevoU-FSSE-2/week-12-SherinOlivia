@@ -1,6 +1,6 @@
-import React from 'react';
-import { Password, Text, SubmitButton } from '../../components'
-import { Input } from 'antd';
+import React, { useState } from 'react';
+import { Password, Text } from '../../components'
+import { Input, Button } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 
@@ -21,6 +21,15 @@ const validationSchema = yup.object({
 
 
 const AccountInformation: React.FC = () => {
+  const [step, setStep] = useState<number>(1);
+
+  const handlePrev = () => {
+    if(step === 2 || step === 3) {
+        setStep((prevStep) => prevStep - 1);
+    }
+
+    return
+  }
 
   const handleSubmit = (values: AccountInfo) => {
     console.log(values)
@@ -33,7 +42,7 @@ const AccountInformation: React.FC = () => {
   })
 
   return (
-    <form style={{ maxWidth: 600 }} onSubmit={formMik.handleSubmit}> 
+    <>
     <div>
       <Text content="Username" />
         <Input name="username" placeholder="Username.." autoComplete='username'            
@@ -62,8 +71,14 @@ const AccountInformation: React.FC = () => {
       )}
     </div>
 
-    <SubmitButton />
-  </form>
+      {step === 3 && (
+        <div>
+          <Button onClick={handlePrev}>Previous</Button>
+          <Button htmlType={'submit'}>Submit </Button>
+        </div>
+
+      )}
+    </>
   )
 
 };

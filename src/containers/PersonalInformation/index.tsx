@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from '../../components';
-import { Input, Button, Space } from 'antd';
+import styles from './PersonalInformation.module.css'
+import { Input } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 
@@ -38,9 +39,8 @@ const PersonalInformation: React.FC = () => {
   })
 
     return (
-      <>
-        <form onSubmit={formMik.handleSubmit} style={{ maxWidth: 600 }}>
-          <div>
+      <div className={styles.personalInfo}>        
+          <div >
             <Text content="Full Name" />
             <Input name="name" placeholder="Please Input Your Name" autoComplete="name" 
             value={formMik.values.name} 
@@ -79,14 +79,8 @@ const PersonalInformation: React.FC = () => {
               </>
             )}
           </div>
-          <Space direction="vertical">
-            <Space wrap>
-              <Button type={'primary'} htmlType={"submit"}>Submit</Button>
-            </Space>
-          </Space>
         
-        </form>
-      </>
+      </div>
     )
 }
 

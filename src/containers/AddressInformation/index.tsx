@@ -1,6 +1,6 @@
 import React from 'react';
 import { Address, ZipCode, State, Text } from '../../components';
-import { Input, Space, Button } from 'antd';
+import { Input } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 interface AddressInfo {
@@ -95,10 +95,6 @@ const AddressInformation: React.FC = () => {
               </>
             )}
           </div>
-
-            <Space wrap>
-              <Button type={'primary'} htmlType={"submit"}>Submit</Button>
-            </Space>
             
         </form>
     )
