@@ -1,49 +1,104 @@
 import React from 'react';
-import { Address, ZipCode, Province, InputField, NewButton } from '../../components';
-import { Form, Space } from 'antd';
+import { Address, ZipCode, State, Text } from '../../components';
+import { Input, Space, Button } from 'antd';
+import { useFormik } from 'formik';
+import * as yup from 'yup'
+interface AddressInfo {
+  address: string,
+  state: string,
+  city: string,
+  zipcode: string
+}
 
-const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
-    },
-  };
+const initialValues = {
+  address: '',
+  state: '',
+  city: '',
+  zipcode: ''
+}
 
-  
+const validationSchema = yup.object({
+  address: yup.string().required('Please Enter Your Street Address'),
+  state: yup.string().required('Please Select Your State'),
+  city: yup.string().required('Please Select Your City'),
+  zipcode: yup.string().required('Please Enter your Zip Code'),
+})
+
+
 const AddressInformation: React.FC = () => {
-    const [form] = Form.useForm();
+
+  const handleSubmit = (values: AddressInfo) => {
+    console.log(values)
+  }
+
+  const formMik = useFormik({
+    initialValues: initialValues,
+    onSubmit: handleSubmit,
+    validationSchema: validationSchema
+  })
 
     return (
-        <Form form={form} name="dynamic_rule" style={{ maxWidth: 600 }}>
-                        
-            <Address placeholder="Please Input Your Address" />
-        
-            <Province />
+        <form onSubmit={formMik.handleSubmit} style={{ maxWidth: 600 }}>
+          <div>  
+            <Text content="Address" />
+            <Address placeholder="Please Input Your Address" autoComplete='street-address'
+            value={formMik.values.address} 
+            onChange={formMik.handleChange('address')}
+            status={formMik.errors.address && 'error'} />
 
-            <Form.Item
-            {...formItemLayout}
-            name="city"
-            label="City"
-            rules={[{ required: true, message: 'Please Input Your City' }]}
-            >
-            <InputField placeholder="Please Input Your City" />
-            </Form.Item>
+            {formMik.errors.address && (
+              <>
+                <Text content='error:'/> {formMik.errors.address}
+              </>
+            )}
+          </div>
 
-            <Form.Item>
-                <ZipCode placeholder="Zip Code.." />
-            </Form.Item>
+          <div>
+            <Text content="State" />
+            <State 
+            value={formMik.values.state} 
+            onChange={formMik.handleChange('state')}
+            status={formMik.errors.state && 'error'} />
 
-            <Space direction="vertical">
-                <Space wrap>
-                <NewButton label="Previous" />
-                <NewButton label="Next" />
-                </Space>
+            {formMik.errors.state && (
+              <>
+                <Text content='error:'/> {formMik.errors.state}
+              </>
+            )}
+          </div>
+
+          <div>
+            <Text content="City" />
+            <Input name="city" placeholder="Please Input Your City" autoComplete='address-level2'
+            value={formMik.values.city} 
+            onChange={formMik.handleChange('city')}
+            status={formMik.errors.city && 'error'}/>
+
+            {formMik.errors.city && (
+              <>
+                <Text content='error:'/> {formMik.errors.city}
+              </>
+            )}
+          </div>  
+          <div>
+            <Text content="Zip Code" />
+            <ZipCode placeholder="Zip Code.." autoComplete='postal-code'
+            value={formMik.values.zipcode} 
+            onChange={formMik.handleChange('zipcode')}
+            status={formMik.errors.zipcode && 'error'}/>
+
+            {formMik.errors.zipcode && (
+              <>
+                <Text content='error:'/> {formMik.errors.zipcode}
+              </>
+            )}
+          </div>
+
+            <Space wrap>
+              <Button type={'primary'} htmlType={"submit"}>Submit</Button>
             </Space>
-        </Form>
+            
+        </form>
     )
 }
 
