@@ -1,13 +1,13 @@
 import React from 'react'
 
-// interface Props {
-//     content: string;
-// }
+interface Props {
+    content: string;
+}
 
-const Text = () => {
+const Text = (text: Props) => {
     
     return (
-        <p>This is Warning Example...</p>
+        <p>{text.content}</p>
       )
 }
 

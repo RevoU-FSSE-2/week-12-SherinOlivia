@@ -1,16 +1,19 @@
 import React from 'react';
-import { Form, Select } from 'antd';
+import { Select } from 'antd';
+import styles from './State.module.css';
 
 const { Option } = Select;
 
-const Province: React.FC = () => {
+interface Props {
+  value: string;
+  onChange: (e: string | React.ChangeEvent) => void
+  status: "" | "error" | "warning" | undefined
+}
+
+const State: React.FC<Props> = ({value, onChange, status}) => {
   return (
-      <Form.Item
-        name="province"
-        label="Province"
-        rules={[{ required: true, message: 'Please select your province' }]}
-      >
-        <Select placeholder="Please select your province">
+    <>
+        <Select className={styles.select} placeholder="Please select your State" value={value} onChange={onChange} status={status}>
           <Option value="Nanggroe Aceh Darussalam">Nanggroe Aceh Darussalam</Option>
           <Option value="Sumatera Utara">Sumatera Utara</Option>
           <Option value="Sumatera Selatan">Sumatera Selatan</Option>
@@ -48,11 +51,10 @@ const Province: React.FC = () => {
           <Option value="Papua Pegunungan">Papua Pegunungan</Option>
           <Option value="Papua Selatan">Papua Selatan</Option>
           <Option value="Papua Barat Daya">Papua Barat Daya</Option>
-          {/* Add more provinces as needed */}
         </Select>
-      </Form.Item>
+    </>
   )
 };
 
-export default Province;
+export default State;
 

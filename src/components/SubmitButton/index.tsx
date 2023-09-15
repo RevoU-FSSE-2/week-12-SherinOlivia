@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 
-interface Props {
-  label: string;
-}
 
-const NewButton = (label: Props) => {
+const SubmitButton = () => {
   const [loadings, setLoadings] = useState<boolean[]>([]);
 
   const enterLoading = (index: number) => {
@@ -25,10 +22,10 @@ const NewButton = (label: Props) => {
   };
 
   return (
-        <Button type="primary" loading={loadings[0]} onClick={() => enterLoading(0)}>
-          {label.label}
+        <Button type="primary" loading={loadings[0]} onClick={() => enterLoading(0)} htmlType={"submit"}>
+          Submit
         </Button>
   );
 };
 
-export default NewButton
+export default SubmitButton
