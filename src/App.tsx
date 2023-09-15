@@ -1,5 +1,6 @@
 // import { useState } from 'react'
 import React, { useState} from 'react'
+import { SubmitButton } from './components';
 import { PersonalInformation, AddressInformation, AccountInformation } from './containers'
 import { Space, Button } from 'antd';
 import './App.css'
@@ -54,6 +55,7 @@ function App() {
           {step === 3 && (
             <div>
               <Button onClick={handlePrev}>Previous</Button>
+              <SubmitButton />
             </div>
 
           )}
