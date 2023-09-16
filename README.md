@@ -8,6 +8,23 @@ Other key features:
 - CSS Framework by Ant Design
 - Typescript Programming Language
 
+## Deployed link: 
+<p align="center">
+<a href="https://sh-registform.netlify.app/">sh-registform.netlify.app</a>||
+<a href="https://sh-registform.roozone.site/">sh-registform.roozone.site</a>
+</p> 
+
+## How to Run the App
+
+For testing purposes, please access the deployed link above (both links lead to the same page)
+
+Otherwise:
+- git clone or download this repository to your machine
+- install the necessities: `pnpm i` / `npm i`
+- run the `pnpm run dev` on your terminal to gain access to `localhost`
+- Note: `PersonalInformation`, `AddressInformation`, `AccountInformation` are not used in `app.tsx`. 
+ **Please Refer to**`RegistrationForm` **thank you.** 
+
 ### Contact Me:
 
 <img src="https://raw.githubusercontent.com/RevoU-FSSE-2/week-7-SherinOlivia/3dd7cdf0d5c9fc1828f0dfcac8ef2e9c057902be/assets/gmail-icon.svg" width="15px" background-color="none">[SOChronicle@gmail.com](mailto:SOChronicle@gmail.com) [Personal]
