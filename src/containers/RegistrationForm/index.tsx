@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Text, State, Address, ZipCode, Password, SubmitButton } from '../../components';
-// import styles from './PersonalInformation.module.css'
+import { ErrorText, Text, State, Address, ZipCode, Password } from '../../components';
+import styles from './RegistrationForm.module.css'
 import { Input, Space, Button } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
@@ -83,10 +83,11 @@ const RegistrationForm: React.FC = () => {
   }
 
     return (
-      <form onSubmit={formMik.handleSubmit} style={{ maxWidth: 600 }}>
+      <form onSubmit={formMik.handleSubmit} className={styles.registForm}>
         {/* ================= Personal Information =================== */}
         {step === 1 && (
-          <div>        
+          <div>   
+            <span className={styles.h2}><Text content="Personal Information" /> </span>   
             <div >
               <Text content="Full Name" />
               <Input name="name" placeholder="Please Input Your Name" autoComplete="name" 
@@ -96,7 +97,8 @@ const RegistrationForm: React.FC = () => {
             
               {formMik.errors.name && (
                 <>
-                  <Text content='error:'/> {formMik.errors.name}
+                <span className={styles.error}><ErrorText /> {formMik.errors.name}</span>
+
                 </>
               )}
 
@@ -110,21 +112,21 @@ const RegistrationForm: React.FC = () => {
 
               {formMik.errors.email && (
                 <>
-                  <Text content='error:'/> {formMik.errors.email}
+                  <span className={styles.error}><ErrorText /> {formMik.errors.email}</span>
                 </>
               )}
             </div>
             <div>
-              <Text content="Date of Birth" />
-              <Input name="dateOfBirth" placeholder="Please Input Your Birthdate.." 
+              <Text content="Date of Birth [dd-mm-yy]" />
+              <Input name="dateOfBirth" placeholder="Please Input Your Birthdate [dd-mm-yy].." 
               value={formMik.values.dateOfBirth} 
               onChange={formMik.handleChange('dateOfBirth')}
               status={formMik.errors.dateOfBirth && 'error'} />
 
               {formMik.errors.dateOfBirth && (
                 <>
-                  <Text content='error:'/> {formMik.errors.dateOfBirth}
-                </>
+                  <span className={styles.error}><ErrorText /> {formMik.errors.dateOfBirth}</span>
+                </>             
               )}
             </div>
           
@@ -134,6 +136,7 @@ const RegistrationForm: React.FC = () => {
         {/* ================= Address Information =================== */}
         {step === 2 && (
           <div>
+            <span className={styles.h2}><Text content="Address Information" /></span>
             <div>  
               <Text content="Address" />
               <Address placeholder="Please Input Your Address" autoComplete='street-address'
@@ -143,7 +146,7 @@ const RegistrationForm: React.FC = () => {
 
               {formMik.errors.address && (
                 <>
-                  <Text content='error:'/> {formMik.errors.address}
+                  <span className={styles.error}><ErrorText /> {formMik.errors.address}</span>
                 </>
               )}
             </div>
@@ -157,7 +160,7 @@ const RegistrationForm: React.FC = () => {
 
             {formMik.errors.state && (
               <>
-                <Text content='error:'/> {formMik.errors.state}
+                <span className={styles.error}><ErrorText /> {formMik.errors.state}</span>
               </>
             )}
           </div>
@@ -171,7 +174,7 @@ const RegistrationForm: React.FC = () => {
 
             {formMik.errors.city && (
               <>
-                <Text content='error:'/> {formMik.errors.city}
+                <span className={styles.error}><ErrorText /> {formMik.errors.city}</span>
               </>
             )}
           </div>  
@@ -183,10 +186,10 @@ const RegistrationForm: React.FC = () => {
               formMik.handleChange('zipcode')(String(value));
             }}
             status={formMik.errors.zipcode && 'error'}/>
-
+            
             {formMik.errors.zipcode && (
               <>
-                <Text content='error:'/> {formMik.errors.zipcode}
+                <span className={styles.error}><ErrorText /> {formMik.errors.zipcode}</span>
               </>
             )}
           </div>
@@ -196,6 +199,7 @@ const RegistrationForm: React.FC = () => {
         {/* ================= Account Information =================== */}
         {step === 3 && (
           <div>
+            <span className={styles.h2}></span>
             <div>
               <Text content="Username" />
               <Input name="username" placeholder="Username.." autoComplete='username'            
@@ -205,7 +209,7 @@ const RegistrationForm: React.FC = () => {
                 
               {formMik.errors.username && (
                 <>
-                  <Text content='error:'/>{formMik.errors.username}
+                  <span className={styles.error}><ErrorText />{formMik.errors.username}</span>
                 </>
               )}
             </div>
@@ -219,7 +223,7 @@ const RegistrationForm: React.FC = () => {
 
               {formMik.errors.password && (
                 <>
-                  <Text content='error:'/> {formMik.errors.password}
+                  <span className={styles.error}><ErrorText />{formMik.errors.password}</span>
                 </>
               )}
             </div>
@@ -231,10 +235,17 @@ const RegistrationForm: React.FC = () => {
 
             {step === 2 && (
               <div>
-                <Button onClick={handlePrev}>Previous</Button>
-                <Button type="primary" 
+                <Button className={styles.button} onClick={handlePrev} >Previous</Button>
+                <Button className={styles.button} type="primary" 
                 onClick={() => {
-                if (!formMik.values.address || !formMik.values.state || !formMik.values.city || !formMik.values.zipcode ) {
+                if (!formMik.values.address) {
+                  formMik.setFieldError('address', 'Please enter your Address');
+                } if (!formMik.values.state){
+                  formMik.setFieldError('state', 'Please enter your State');
+                } if (!formMik.values.city){
+                  formMik.setFieldError('city', 'Please enter your City');
+                } if (formMik.values.zipcode === 0){
+                  formMik.setFieldError('zipcode', 'Please enter your Zip Code');
                   return;
                 } else {
                   handleNext();
@@ -247,9 +258,14 @@ const RegistrationForm: React.FC = () => {
 
             {step === 1 && (
               <div>
-                 <Button type="primary" 
+                 <Button className={styles.button} type="primary" 
                 onClick={() => {
-                if (!formMik.values.name || !formMik.values.email || !formMik.values.dateOfBirth ) {
+                if (!formMik.values.name) {
+                  formMik.setFieldError('name', 'Please Input  Your Name');
+                } if (!formMik.values.email) {
+                  formMik.setFieldError('email', 'Please Input Your Email');
+                } if (!formMik.values.dateOfBirth) {
+                  formMik.setFieldError('dateOfBirth', 'Please Input Your Birthdate [dd-mm-yy]');
                   return;
                 } else {
                   handleNext();
@@ -262,8 +278,18 @@ const RegistrationForm: React.FC = () => {
 
             {step === 3 && (
               <div>
-                <Button onClick={handlePrev}>Previous</Button>
-                <SubmitButton />
+                <Button className={styles.button} onClick={handlePrev}>Previous</Button>
+                <Button className={styles.button} htmlType='submit' type="primary" 
+                onClick={() => {
+                if (!formMik.values.username) {
+                  formMik.setFieldError('username', 'Please enter your Username');
+                } if (!formMik.values.password) {
+                  formMik.setFieldError('email', 'Please enter your Password');
+                  return;
+                } 
+              }} >
+                Submit
+                </Button>
               </div>
 
             )}
