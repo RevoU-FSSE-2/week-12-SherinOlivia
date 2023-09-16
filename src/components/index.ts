@@ -4,6 +4,7 @@
 
 // Misc
 export { default as Text } from './Text';
+export { default as ErrorText } from './ErrorText';
 
 // Address Information
 export { default as Address} from './Address';

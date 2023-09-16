@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styles from './Text.module.css'
 interface Props {
     content: string;
 }
@@ -7,7 +7,7 @@ interface Props {
 const Text = (text: Props) => {
     
     return (
-        <p>{text.content}</p>
+        <p   className={styles.text}>{text.content}</p>
       )
 }
 
